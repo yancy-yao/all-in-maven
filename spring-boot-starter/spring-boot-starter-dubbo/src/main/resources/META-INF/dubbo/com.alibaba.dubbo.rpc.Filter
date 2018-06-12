@@ -1,0 +1,2 @@
+dubboconsumerstatics=com.yancy.boot.dubbo.listener.ConsumerInvokeStaticsFilter
+dubboproviderstatics=com.yancy.boot.dubbo.listener.ProviderInvokeStaticsFilter

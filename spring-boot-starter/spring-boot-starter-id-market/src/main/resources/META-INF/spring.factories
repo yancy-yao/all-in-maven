@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.yancy.springboot.starter.idmarket.IdMarketAutoConfiguration

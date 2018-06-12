@@ -1,0 +1,1 @@
+dubboexport=com.yancy.boot.dubbo.listener.ProviderExportListener
