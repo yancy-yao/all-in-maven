@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yancy.order.dal.mapper.DuplicateOrderRemovalMapper">
+    <resultMap id="BaseResultMap" type="com.yancy.order.dal.po.DuplicateOrderRemovalPO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="repast_id" jdbcType="INTEGER" property="repastId"/>
+        <result column="bespeak_id" jdbcType="INTEGER" property="bespeakId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, repast_id, bespeak_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from trd_duplicate_order_removal
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from trd_duplicate_order_removal
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.huiguan.order.dal.po.DuplicateOrderRemovalPO">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into trd_duplicate_order_removal (repast_id, bespeak_id)
+        values (#{repastId,jdbcType=INTEGER}, #{bespeakId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.huiguan.order.dal.po.DuplicateOrderRemovalPO">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into trd_duplicate_order_removal
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="repastId != null">
+                repast_id,
+            </if>
+            <if test="bespeakId != null">
+                bespeak_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="repastId != null">
+                #{repastId,jdbcType=INTEGER},
+            </if>
+            <if test="bespeakId != null">
+                #{bespeakId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.huiguan.order.dal.po.DuplicateOrderRemovalPO">
+        update trd_duplicate_order_removal
+        <set>
+            <if test="repastId != null">
+                repast_id = #{repastId,jdbcType=INTEGER},
+            </if>
+            <if test="bespeakId != null">
+                bespeak_id = #{bespeakId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.huiguan.order.dal.po.DuplicateOrderRemovalPO">
+        update trd_duplicate_order_removal
+        set repast_id = #{repastId,jdbcType=INTEGER},
+        bespeak_id = #{bespeakId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <insert id="insertIfNotExist">
+        insert into trd_duplicate_order_removal (repast_id, bespeak_id) select #{repastId},
+        #{bespeakId} from dual
+        WHERE not exists (select 1 from trd_duplicate_order_removal tdor where tdor.repast_id =#{repastId});
+    </insert>
+    <delete id="deleteOverDays">
+        delete from trd_duplicate_order_removal where gmt_create <![CDATA[ <=  ]]> date_sub(now(), interval #{day} day)
+    </delete>
+</mapper>

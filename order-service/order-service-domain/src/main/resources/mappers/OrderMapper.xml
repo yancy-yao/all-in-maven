@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yancy.order.dal.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.yancy.order.dal.po.OrderPO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="total_amount" jdbcType="BIGINT" property="totalAmount"/>
+        <result column="real_total_amount" jdbcType="BIGINT" property="realTotalAmount"/>
+        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime"/>
+        <result column="close_time" jdbcType="TIMESTAMP" property="closeTime"/>
+        <result column="pay_status" jdbcType="INTEGER" property="payStatus"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="store_id" jdbcType="BIGINT" property="storeId"/>
+        <result column="merchant_id" jdbcType="BIGINT" property="merchantId"/>
+        <result column="account_id" jdbcType="BIGINT" property="accountId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="order_type" jdbcType="INTEGER" property="orderType"/>
+        <result column="point" jdbcType="BIGINT" property="point"/>
+        <result column="balance" jdbcType="BIGINT" property="balance"/>
+        <result column="cash" jdbcType="BIGINT" property="cash"/>
+        <result column="pay_channel" jdbcType="INTEGER" property="payChannel"/>
+        <result column="pay_account" jdbcType="VARCHAR" property="payAccount"/>
+        <result column="pay_flow" jdbcType="VARCHAR" property="payFlow"/>
+        <result column="pay_app_id" jdbcType="VARCHAR" property="payAppId"/>
+        <result column="no_discount_amount" jdbcType="BIGINT" property="noDiscountAmount"/>
+        <result column="merchant_real_amount" jdbcType="BIGINT" property="merchantRealAmount"/>
+        <result column="attachment" jdbcType="VARCHAR" property="attachment"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+        <result column="ver" jdbcType="INTEGER" property="ver"/>
+        <result column="logo_pic" jdbcType="VARCHAR" property="logoPic"/>
+        <result column="refundable" jdbcType="INTEGER" property="refundable"/>
+        <result column="order_status" jdbcType="INTEGER" property="orderStatus"/>
+        <result column="employee_id" jdbcType="BIGINT" property="employeeId"/>
+        <result column="last_pay_start_time" jdbcType="TIMESTAMP" property="lastPayStartTime"/>
+        <result column="last_pay_end_time" jdbcType="TIMESTAMP" property="lastPayEndTime"/>
+        <result column="last_refund_start_time" jdbcType="TIMESTAMP" property="lastRefundStartTime"/>
+        <result column="last_refund_end_time" jdbcType="TIMESTAMP" property="lastRefundEndTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, title, total_amount, real_total_amount, pay_time, close_time, pay_status, status,
+        store_id, merchant_id, account_id, type, order_type, point, balance, cash, pay_channel,
+        pay_account,pay_flow,pay_app_id,
+        no_discount_amount,merchant_real_amount, attachment, remarks, gmt_create, gmt_modified, ver
+        ,logo_pic,refundable,order_status,employee_id,
+        last_pay_start_time,last_pay_end_time,last_refund_start_time,last_refund_end_time
+    </sql>
+    <sql id="Left_Column_List">
+        o.id, o.title, o.total_amount, o.real_total_amount, o.pay_time, o.close_time, o.pay_status, o.status,
+        o.store_id, o.merchant_id, o.account_id, o.type, o.order_type, o.point, o.balance, o.cash, o.pay_channel,
+        o.pay_account,o.pay_flow,o.pay_app_id,
+        o.no_discount_amount,merchant_real_amount, o.attachment, o.remarks, o.gmt_create, o.gmt_modified, o.ver
+        ,o.logo_pic,o.refundable,o.order_status,o.employee_id,
+        o.last_pay_start_time,o.last_pay_end_time,o.last_refund_start_time,o.last_refund_end_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from trd_order
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from trd_order
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.huiguan.order.dal.po.OrderPO">
+        insert into trd_order (id, title, total_amount,
+        real_total_amount, pay_time, close_time,
+        pay_status, status, store_id,
+        merchant_id, account_id, type,
+        order_type, point, balance,
+        cash, pay_channel, no_discount_amount,merchant_real_amount,
+        attachment, remarks, gmt_create,
+        gmt_modified, ver,logo_pic,refundable,order_status,employee_id,
+        last_pay_start_time,last_pay_end_time,last_refund_start_time,last_refund_end_time)
+        values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{totalAmount,jdbcType=BIGINT},
+        #{realTotalAmount,jdbcType=BIGINT}, #{payTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP},
+        #{payStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{storeId,jdbcType=BIGINT},
+        #{merchantId,jdbcType=BIGINT}, #{accountId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER},
+        #{orderType,jdbcType=INTEGER}, #{point,jdbcType=BIGINT}, #{balance,jdbcType=BIGINT},
+        #{cash,jdbcType=BIGINT}, #{payChannel,jdbcType=INTEGER}, #{noDiscountAmount,jdbcType=BIGINT},
+        #{merchantRealAmount,jdbcType=BIGINT},
+        #{attachment,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+        #{gmtModified,jdbcType=TIMESTAMP}, #{ver,jdbcType=INTEGER},#{logoPic,jdbcType=VARCHAR},
+        #{refundable,jdbcType=INTEGER},#{orderStatus,jdbcType=INTEGER}, #{employeeId,jdbcType=BIGINT},
+        #{lastPayStartTime,jdbcType=TIMESTAMP},#{lastPayEndTime,jdbcType=TIMESTAMP},#{lastRefundStartTime,jdbcType=TIMESTAMP},#{lastRefundEndTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.huiguan.order.dal.po.OrderPO">
+        insert into trd_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="totalAmount != null">
+                total_amount,
+            </if>
+            <if test="realTotalAmount != null">
+                real_total_amount,
+            </if>
+            <if test="payTime != null">
+                pay_time,
+            </if>
+            <if test="closeTime != null">
+                close_time,
+            </if>
+            <if test="payStatus != null">
+                pay_status,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="storeId != null">
+                store_id,
+            </if>
+            <if test="merchantId != null">
+                merchant_id,
+            </if>
+            <if test="accountId != null">
+                account_id,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="orderType != null">
+                order_type,
+            </if>
+            <if test="point != null">
+                point,
+            </if>
+            <if test="balance != null">
+                balance,
+            </if>
+            <if test="cash != null">
+                cash,
+            </if>
+            <if test="payChannel != null">
+                pay_channel,
+            </if>
+            <if test="noDiscountAmount != null">
+                no_discount_amount,
+            </if>
+
+            <if test="merchantRealAmount != null">
+                merchant_real_amount,
+            </if>
+            <if test="attachment != null">
+                attachment,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified,
+            </if>
+            <if test="ver != null">
+                ver,
+            </if>
+            <if test="bizId != null">
+                biz_id,
+            </if>
+            <if test="logoPic != null">
+                logo_pic,
+            </if>
+            <if test="refundable != null">
+                refundable,
+            </if>
+            <if test="orderStatus != null">
+                order_status,
+            </if>
+            <if test="employeeId != null">
+                employee_id,
+            </if>
+
+
+            <if test="lastPayStartTime != null">
+                last_pay_start_time,
+            </if>
+            <if test="lastPayEndTime != null">
+                last_pay_end_time,
+            </if>
+            <if test="lastRefundStartTime!= null">
+                last_refund_start_time ,
+            </if>
+            <if test="lastRefundEndTime != null">
+                last_refund_end_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                #{totalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="realTotalAmount != null">
+                #{realTotalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="payTime != null">
+                #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="closeTime != null">
+                #{closeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payStatus != null">
+                #{payStatus,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=BIGINT},
+            </if>
+            <if test="merchantId != null">
+                #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="accountId != null">
+                #{accountId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="orderType != null">
+                #{orderType,jdbcType=INTEGER},
+            </if>
+            <if test="point != null">
+                #{point,jdbcType=BIGINT},
+            </if>
+            <if test="balance != null">
+                #{balance,jdbcType=BIGINT},
+            </if>
+            <if test="cash != null">
+                #{cash,jdbcType=BIGINT},
+            </if>
+            <if test="payChannel != null">
+                #{payChannel,jdbcType=INTEGER},
+            </if>
+            <if test="noDiscountAmount != null">
+                #{noDiscountAmount,jdbcType=BIGINT},
+            </if>
+            <if test="merchantRealAmount != null">
+                #{merchantRealAmount,jdbcType=BIGINT},
+            </if>
+            <if test="attachment != null">
+                #{attachment,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ver != null">
+                #{ver,jdbcType=INTEGER},
+            </if>
+            <if test="bizId != null">
+                #{bizId,jdbcType=BIGINT},
+            </if>
+            <if test="logoPic != null">
+                #{logoPic,jdbcType=VARCHAR},
+            </if>
+            <if test="refundable != null">
+                #{refundable,jdbcType=INTEGER},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="employeeId != null">
+                #{employeeId,jdbcType=BIGINT},
+            </if>
+
+            <if test="lastPayStartTime != null">
+                #{lastPayStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastPayEndTime != null">
+                #{lastPayEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastRefundStartTime!= null">
+                #{lastRefundStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastRefundEndTime != null">
+                #{lastRefundEndTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.huiguan.order.dal.po.OrderPO">
+        update trd_order
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="realTotalAmount != null">
+                real_total_amount = #{realTotalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="closeTime != null">
+                close_time = #{closeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payStatus != null">
+                pay_status = #{payStatus,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=BIGINT},
+            </if>
+            <if test="merchantId != null">
+                merchant_id = #{merchantId,jdbcType=BIGINT},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="orderType != null">
+                order_type = #{orderType,jdbcType=INTEGER},
+            </if>
+            <if test="point != null">
+                point = #{point,jdbcType=BIGINT},
+            </if>
+            <if test="balance != null">
+                balance = #{balance,jdbcType=BIGINT},
+            </if>
+            <if test="cash != null">
+                cash = #{cash,jdbcType=BIGINT},
+            </if>
+            <if test="payChannel != null">
+                pay_channel = #{payChannel,jdbcType=INTEGER},
+            </if>
+            <if test="payAccount != null">
+                pay_account = #{payAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="payFlow != null">
+                pay_flow = #{payFlow,jdbcType=VARCHAR},
+            </if>
+            <if test="payAppId != null">
+                pay_app_id = #{payAppId,jdbcType=VARCHAR},
+            </if>
+            <if test="noDiscountAmount != null">
+                no_discount_amount = #{noDiscountAmount,jdbcType=BIGINT},
+            </if>
+            <if test="merchantRealAmount != null">
+                merchant_real_amount = #{merchantRealAmount,jdbcType=BIGINT},
+            </if>
+            <if test="attachment != null">
+                attachment = #{attachment,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="ver != null">
+                ver = #{ver,jdbcType=INTEGER},
+            </if>
+            <if test="logoPic != null">
+                logo_pic = #{logoPic,jdbcType=VARCHAR},
+            </if>
+            <if test="refundable != null">
+                refundable = #{refundable,jdbcType=INTEGER},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=INTEGER},
+            </if>
+            <if test="employeeId != null">
+                employee_id = #{employeeId,jdbcType=BIGINT},
+            </if>
+
+            <if test="lastPayStartTime != null">
+                last_pay_start_time= #{lastPayStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastPayEndTime != null">
+                last_pay_end_time = #{lastPayEndTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastRefundStartTime!= null">
+                last_refund_start_time = #{lastRefundStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastRefundEndTime != null">
+                last_refund_end_time = #{lastRefundEndTime,jdbcType=TIMESTAMP},
+            </if>
+
+            <if test="recevieAccount != null">
+                recevie_account = #{recevieAccount,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.huiguan.order.dal.po.OrderPO">
+        update trd_order
+        set title = #{title,jdbcType=VARCHAR},
+        total_amount = #{totalAmount,jdbcType=BIGINT},
+        real_total_amount = #{realTotalAmount,jdbcType=BIGINT},
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+        pay_status = #{payStatus,jdbcType=INTEGER},
+        status = #{status,jdbcType=INTEGER},
+        store_id = #{storeId,jdbcType=BIGINT},
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+        account_id = #{accountId,jdbcType=BIGINT},
+        type = #{type,jdbcType=INTEGER},
+        order_type = #{orderType,jdbcType=INTEGER},
+        point = #{point,jdbcType=BIGINT},
+        balance = #{balance,jdbcType=BIGINT},
+        cash = #{cash,jdbcType=BIGINT},
+        pay_channel = #{payChannel,jdbcType=INTEGER},
+        no_discount_amount = #{noDiscountAmount,jdbcType=BIGINT},
+        merchant_real_amount = #{merchantRealAmount,jdbcType=BIGINT},
+        attachment = #{attachment,jdbcType=VARCHAR},
+        remarks = #{remarks,jdbcType=VARCHAR},
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+        ver = #{ver,jdbcType=INTEGER},
+        logo_pic = #{logoPic,jdbcType=VARCHAR},
+        refundable = #{refundable,jdbcType=INTEGER},
+        order_status = #{orderStatus,jdbcType=INTEGER},
+        employee_id = #{employeeId,jdbcType=BIGINT},
+        last_pay_start_time= #{lastPayStartTime,jdbcType=TIMESTAMP},
+        last_pay_end_time = #{lastPayEndTime,jdbcType=TIMESTAMP},
+        last_refund_start_time = #{lastRefundStartTime,jdbcType=TIMESTAMP},
+        last_refund_end_time = #{lastRefundEndTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="closeOutOfHourNotPay">
+        update trd_order set order_status=1,close_time=now(),gmt_modified= now()
+        where gmt_create  <![CDATA[<= ]]> date_sub(now(), interval #{hour} HOUR ) and (pay_status=0 or pay_status=2 or
+        pay_status=3) and status=1 and order_status = 0
+    </update>
+
+
+    <update id="closeExpireOrderByIds">
+        update trd_order set order_status=1,close_time=now(),gmt_modified= now()
+        where id in
+
+        <foreach collection="orderIds" index="index" item="orderId" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+        and (pay_status=0 or pay_status=2 or pay_status=3) and status=1 and order_status = 0
+    </update>
+
+
+    <select id="selectOutOfHourNotPay" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from trd_order
+        where gmt_create  <![CDATA[<= ]]> date_sub(now(), interval #{minute} minute ) and (pay_status=0 or pay_status=2
+        or
+        pay_status=3) and
+        status=1 and order_status = 0
+    </select>
+    <select id="selectPageOrderByBuyerIdAndPayStatus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from trd_order
+        where account_id=#{accountId}
+        <if test="orderType!=null">
+            and order_type IN
+            <foreach collection="orderType" item="type" open="(" close=")" separator=",">
+                #{type,jdbcType=INTEGER}
+            </foreach>
+        </if>
+        <if test="showNotPayFlag == 0">
+            and pay_status != 0
+        </if>
+        and status =1
+        order by gmt_create desc limit #{page.offset} ,#{page.pageSize}
+    </select>
+    <select id="selectCountByBuyerIdAndPayStatus" resultType="java.lang.Long">
+        SELECT
+       count(1)
+        from trd_order
+        where account_id=#{accountId}
+        <if test="orderType!=null">
+            and order_type IN
+            <foreach collection="orderType" item="type" open="(" close=")" separator=",">
+                 #{type,jdbcType=INTEGER}
+            </foreach>
+
+        </if>
+        <if test="showNotPayFlag == 0">
+            and pay_status != 0
+        </if>
+        and status =1
+    </select>
+    <select id="selectBuyerOrderByAccountIdAndId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from trd_order where account_id=#{accountId} and id=#{id}
+    </select>
+    <select id="selectMerchantOrderByMerchantIdAndId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from trd_order where merchant_id=#{merchantId} and id=#{id} and status=1
+    </select>
+
+    <select id="checkByMerchantIdOrStoreIdOrAccountIdAndStatus" resultType="java.lang.Boolean">
+        SELECT IFNULL(count(1),0)
+        from trd_order
+
+        <trim prefix="WHERE" suffixOverrides="AND | OR">
+            <if test="merchantId != null">
+                merchant_id=#{merchantId,jdbcType=BIGINT} AND
+            </if>
+            <if test="storeId != null">
+                store_id=#{storeId,jdbcType=BIGINT} AND
+            </if>
+            <if test="accountId != null">
+                account_id=#{accountId,jdbcType=BIGINT} AND
+            </if>
+            <if test="status != null">
+                status=#{status,jdbcType=INTEGER} AND
+            </if>
+        </trim>
+    </select>
+
+
+    <update id="updateOrderStatus">
+        update trd_order
+        set status=#{status,jdbcType=INTEGER},
+        ver = ver+1,
+        gmt_modified = now()
+        where id=#{orderId,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="pagingByQuery" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from trd_order
+
+        <trim prefix="WHERE" suffixOverrides="AND | OR">
+            <if test="query.startTime != null">
+                gmt_create&gt;=#{query.startTime,jdbcType=TIMESTAMP} AND
+            </if>
+
+            <if test="query.endTime != null">
+                gmt_create &lt;#{query.endTime,jdbcType=TIMESTAMP} AND
+            </if>
+            <if test="query.orderTypes != null and query.orderTypes.size()>0">
+                order_type in
+                <foreach collection="query.orderTypes" index="index" item="orderType" open="(" separator="," close=")">
+                    #{orderType}
+                </foreach>
+                AND
+            </if>
+
+            <if test="query.payTypes != null and query.payTypes.size()>0">
+                type in
+                <foreach collection="query.payTypes" index="index" item="payType" open="(" separator="," close=")">
+                    #{payType}
+                </foreach>
+                AND
+            </if>
+            <if test="query.payStatus != null">
+                pay_status=#{query.payStatus,jdbcType=INTEGER} AND
+            </if>
+            <if test="query.status != null">
+                status=#{query.status,jdbcType=INTEGER} AND
+            </if>
+            <if test="query.storeId != null">
+                store_id=#{query.storeId,jdbcType=BIGINT} AND
+            </if>
+            <if test="query.merchantId != null">
+                merchant_id=#{query.merchantId,jdbcType=BIGINT} AND
+            </if>
+        </trim>
+
+        order by id desc
+
+        <if test="query.pageSize != null and query.page != null">
+            limit #{query.offset} ,#{query.pageSize}
+        </if>
+
+    </select>
+
+    <select id="countByQuery" resultType="java.lang.Long">
+        SELECT
+        count(1)
+        from trd_order
+
+        <trim prefix="WHERE" suffixOverrides="AND | OR">
+            <if test="query.startTime != null">
+                gmt_create&gt;=#{query.startTime,jdbcType=TIMESTAMP} AND
+            </if>
+
+            <if test="query.endTime != null">
+                gmt_create &lt;#{query.endTime,jdbcType=TIMESTAMP} AND
+            </if>
+            <if test="query.orderTypes != null and query.orderTypes.size()>0">
+                order_type in
+                <foreach collection="query.orderTypes" index="index" item="orderType" open="(" separator="," close=")">
+                    #{orderType}
+                </foreach>
+                AND
+            </if>
+
+            <if test="query.payTypes != null and query.payTypes.size()>0">
+                type in
+                <foreach collection="query.payTypes" index="index" item="payType" open="(" separator="," close=")">
+                    #{payType}
+                </foreach>
+                AND
+            </if>
+            <if test="query.payStatus != null">
+                pay_status=#{query.payStatus,jdbcType=INTEGER} AND
+            </if>
+            <if test="query.status != null">
+                status=#{query.status,jdbcType=INTEGER} AND
+            </if>
+            <if test="query.storeId != null">
+                store_id=#{query.storeId,jdbcType=BIGINT} AND
+            </if>
+            <if test="query.merchantId != null">
+                merchant_id=#{query.merchantId,jdbcType=BIGINT} AND
+            </if>
+        </trim>
+
+
+    </select>
+
+    <update id="updateMerchantRealAmountByOrderId">
+        update trd_order set merchant_real_amount=#{merchantRealAmount,jdbcType=BIGINT} ,
+        ver=ver+1,
+        gmt_modified = now()
+        where id=#{orderId,jdbcType=BIGINT}
+    </update>
+    <update id="setOrderPaying">
+        update trd_order set pay_status=3 ,last_pay_start_time = now(), gmt_modified = now() ,ver = ver+1 where
+        id=#{orderId,jdbcType=BIGINT} and (pay_status=0 or pay_status= 2 or pay_status=3) and order_status = 0 and status = 1
+    </update>
+    <update id="setOrderRefunding">
+        update trd_order set pay_status=4 ,last_refund_start_time=now(), gmt_modified = now() ,ver = ver+1 where
+        id=#{orderId,jdbcType=BIGINT} and (pay_status=1 or pay_status= 5) and order_status = 0 and status = 1
+    </update>
+    <update id="setOrderManualLock">
+        update trd_order set order_status=2, gmt_modified = now() ,ver = ver+1 where
+        id=#{orderId,jdbcType=BIGINT} and pay_status=0 and order_status = 0 and status = 1
+    </update>
+    <select id="selectRefundingTimeOutOrder" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from trd_order
+        where pay_status = 4 and order_status = 0 and status = 1 and gmt_create  <![CDATA[<= ]]> date_sub(now(),
+        interval 24 HOUR )
+    </select>
+    <select id="selectPayingTimeOutOrder" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from trd_order
+        where (pay_status = 3 or pay_status=2 )and order_status = 0 and status = 1 and gmt_modified  <![CDATA[<= ]]>
+        date_sub(now(), interval 1 MINUTE )
+    </select>
+
+    <update id="updateById">
+        update trd_order
+        set
+        pay_time=now(),
+        pay_status=#{payStatus,jdbcType=INTEGER},
+        pay_channel=#{payChannel,jdbcType=INTEGER},
+        ver=ver+1,
+        gmt_modified = now()
+
+        where id=#{id,jdbcType=BIGINT} and status=#{status,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectOrderIdsByBizIds" resultType="com.huiguan.order.dal.po.OrderIdAndBizIdPO">
+        SELECT
+        id as orderId,biz_id as bizId
+        from trd_order where biz_id in
+        <foreach collection="bizIds" item="bizId" index="index" separator="," open="(" close=")">
+            #{bizId,jdbcType=BIGINT}
+        </foreach>
+    </select>
+
+    <select id="selectOrderNumByAccountId" resultType="java.lang.Long">
+        SELECT count(id)
+        from trd_order
+        where account_id=#{accountId}
+    </select>
+
+    <select id="getOrderDetailByCouponId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Left_Column_List"/>
+        from trd_order o
+        left join trd_order_item ot
+        on o.id=ot.order_id
+        <if test="couponId!=null">
+            where  ot.product_id = #{couponId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+</mapper>
